@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Initial Sourcing Order Form - geeLogistics</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --charcoal: #2b2f35;
+      --red: #c41e2b;
+      --green: #006838;
+      --yellow: #ffcd00;
+      --white: #ffffff;
+      --light-gray: #f8f9fa;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: 
+        linear-gradient(135deg, rgba(196, 30, 43, 0.9) 0%, rgba(43, 47, 53, 0.95) 50%, rgba(255, 205, 0, 0.1) 100%),
+        radial-gradient(circle at 20% 80%, rgba(255, 205, 0, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(196, 30, 43, 0.1) 0%, transparent 50%);
+      min-height: 100vh;
+      padding: 20px 0;
+    }
+
+    .glass-container {
+      background: var(--white);
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px;
+      color: var(--charcoal);
+    }
+
+    .form-section {
+      background: var(--light-gray);
+      border-radius: 8px;
+      padding: 24px;
+      margin: 24px 0;
+      border: 1px solid #e0e0e0;
+    }
+
+    .section-title {
+      color: var(--red);
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .form-control, .form-select {
+      background: var(--white);
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      color: var(--charcoal);
+      padding: 12px 16px;
+    }
+
+    .form-control:focus, .form-select:focus {
+      background: var(--white);
+      border-color: var(--red);
+      color: var(--charcoal);
+      box-shadow: 0 0 0 0.2rem rgba(196, 30, 43, 0.25);
+    }
+
+    .form-control::placeholder {
+      color: #666;
+    }
+
+    .btn-submit {
+      background: linear-gradient(135deg, var(--green) 0%, #25D366 100%);
+      border: none;
+      border-radius: 16px;
+      padding: 16px 32px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: white;
+      width: 100%;
+      margin-top: 24px;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 24px rgba(37, 211, 102, 0.3);
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(37, 211, 102, 0.4);
+    }
+
+    .fee-highlight {
+      background: linear-gradient(135deg, var(--red) 0%, #ff6b6b 100%);
+      color: white;
+      padding: 20px;
+      border-radius: 16px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 1.3rem;
+      margin: 24px 0;
+      box-shadow: 0 8px 24px rgba(196, 30, 43, 0.3);
+    }
+
+    .rules-container {
+      background: rgba(255, 205, 0, 0.1);
+      border: 1px solid rgba(255, 205, 0, 0.3);
+      border-radius: 16px;
+      padding: 24px;
+      margin: 24px 0;
+    }
+
+    .rules-title {
+      color: var(--yellow);
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 16px;
+    }
+
+    .rules-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .rules-list li {
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+      padding-left: 24px;
+    }
+
+    .rules-list li:before {
+      content: "•";
+      color: var(--yellow);
+      font-weight: bold;
+      position: absolute;
+      left: 0;
+    }
+
+    .payment-info {
+      background: linear-gradient(135deg, var(--green) 0%, #20c997 100%);
+      color: white;
+      padding: 24px;
+      border-radius: 16px;
+      text-align: center;
+      margin: 24px 0;
+      box-shadow: 0 8px 24px rgba(0, 104, 56, 0.3);
+    }
+
+    h1 {
+      text-align: center;
+      font-weight: 800;
+      font-size: 2.5rem;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, var(--yellow) 0%, #ffd700 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 1.1rem;
+      opacity: 0.9;
+      margin-bottom: 32px;
+    }
+
+    /* Navigation Styles */
+    .navbar-custom {
+      background: var(--red) !important;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 32px rgba(196, 30, 43, 0.3);
+      padding: 1rem 0;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .navbar-brand {
+      font-weight: 800;
+      font-size: 2rem;
+      color: var(--white) !important;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+    }
+
+    .navbar-nav .nav-link {
+      color: var(--white) !important;
+      font-weight: 600;
+      margin: 0 0.5rem;
+      padding: 0.5rem 1rem !important;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .navbar-nav .nav-link:hover {
+      background: rgba(255, 205, 0, 0.2);
+      color: var(--yellow) !important;
+      transform: translateY(-2px);
+    }
+
+    .btn-advertise {
+      background: linear-gradient(135deg, var(--yellow) 0%, #ffd700 100%);
+      color: var(--charcoal) !important;
+      border: none;
+      border-radius: 25px;
+      font-weight: 700;
+      padding: 0.5rem 1.5rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(255, 205, 0, 0.3);
+    }
+
+    .btn-advertise:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 205, 0, 0.4);
+    }
+
+    .glass-container {
+      margin-top: 100px;
+    }
+
+    .footer {
+        background: var(--charcoal);
+        color: var(--white);
+        padding: 3rem 0 1rem 0;
+        margin-top: 4rem;
+    }
+
+    .footer-content {
+        margin-bottom: 2rem;
+    }
+
+    .footer-title {
+        color: var(--yellow);
+        font-weight: 700;
+        margin-bottom: 1rem;
+    }
+
+    .footer-links {
+        list-style: none;
+        padding: 0;
+    }
+
+    .footer-links li {
+        margin-bottom: 0.5rem;
+    }
+
+    .footer-links a {
+        color: var(--white);
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+        color: var(--yellow);
+    }
+
+    .footer-bottom {
+        border-top: 1px solid rgba(255,255,255,0.1);
+        padding-top: 2rem;
+        text-align: center;
+    }
+
+    /* Payment Confirmation Styles */
+    .payment-method {
+        padding: 1.5rem;
+        border: 2px dashed #ddd;
+        border-radius: 8px;
+        transition: border-color 0.3s ease;
+    }
+
+    .payment-method:hover {
+        border-color: var(--red);
+    }
+
+    .payment-method h5 {
+        color: var(--red);
+        margin-bottom: 1rem;
+    }
+
+    .payment-number {
+        display: inline-flex;
+        align-items: center;
+        background: var(--charcoal);
+        color: var(--white);
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+    .btn-success {
+        background: #25D366;
+        border: none;
+        border-radius: 8px;
+        padding: 0.75rem 1.5rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .btn-success:hover {
+        background: #22C55E;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+    }
+
+    .file-upload-preview {
+        margin-top: 1rem;
+        padding: 1rem;
+        background: var(--light-gray);
+        border-radius: 6px;
+        display: none;
+    }
+
+    .file-upload-preview.show {
+        display: block;
+    }
+
+    .file-info {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .file-info img {
+        max-width: 100px;
+        max-height: 100px;
+        border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-custom fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="index.html"><img src="logo.png" alt="geeLogistics Logo" style="height:50px"></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarMenu">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#services">Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="products.html">Products</a></li>
+          <li class="nav-item"><a class="nav-link active" href="service-request.html">Request Service</a></li>
+          <li class="nav-item"><a class="nav-link" href="advertise.html">Advertise</a></li>
+          <li class="nav-item"><a class="nav-link" href="marketplace.html">Marketplace</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="glass-container">
+    <h1>Customer Initial Sourcing Order Form</h1>
+    <p class="subtitle">(For Sourcing from China to Ghana)</p>
+    <p class="text-center mb-4">Thank you for choosing our sourcing service. Please complete this form to request your initial order. Orders will only be processed after payment of the Initial Sourcing Service Fee.</p>
+
+      <form id="sourcingForm">
+      <!-- Customer Information -->
+      <div class="form-section">
+        <h3 class="section-title">
+          <i class="bi bi-person-fill"></i>
+          1. Customer Information
+        </h3>
+        
+        <div class="mb-3">
+          <label class="form-label">Full Name</label>
+          <input type="text" class="form-control" id="name" required placeholder="Enter your full name">
+        </div>
+        
+        <div class="mb-3">
+          <label class="form-label">Phone / WhatsApp</label>
+          <input type="tel" class="form-control" id="phone" required placeholder="+233 XX XXX XXXX">
+        </div>
+        
+        <div class="mb-3">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-control" id="email" placeholder="your.email@example.com">
+        </div>
+        
+        <div class="mb-3">
+          <label class="form-label">Delivery Location (City/Area in Ghana)</label>
+          <input type="text" class="form-control" id="location" required placeholder="e.g., Accra, Tema, Kumasi, Takoradi">
+        </div>
+      </div>
+
+      <!-- Product Information -->
+      <div class="form-section">
+        <h3 class="section-title">
+          <i class="bi bi-box-seam"></i>
+          2. Product Information
+        </h3>
+        <p class="mb-3" style="opacity: 0.9;">(Please be as specific as possible to avoid mistakes)</p>
+        
+        <div class="mb-3">
+          <label class="form-label">Product Name / Type</label>
+          <input type="text" class="form-control" id="product" required placeholder="e.g., Wireless Bluetooth Headphones, Running Shoes">
+        </div>
+        
+        <div class="mb-3">
+          <label class="form-label">Product Description (Size, Color, Material, Specs)</label>
+          <textarea class="form-control" id="description" rows="4" required placeholder="Be specific about size, color, material, specifications, brand preferences, etc."></textarea>
+        </div>
+        
+        <div class="mb-3">
+          <label class="form-label">Quantity Needed</label>
+          <input type="number" class="form-control" id="quantity" required min="1" placeholder="Enter quantity">
+        </div>
+        
+        <div class="mb-3">
+          <label class="form-label">Preferred Budget (per unit / total)</label>
+          <input type="text" class="form-control" id="budget" required placeholder="e.g., GHS 150 per unit or GHS 1500 total">
+        </div>
+        
+        <div class="mb-3">
+          <label class="form-label">Example Links / Photos (if any)</label>
+          <textarea class="form-control" id="examples" rows="3" placeholder="Paste product links, image URLs, or describe reference materials"></textarea>
+        </div>
+      </div>
+
+      <!-- Service Fee -->
+      <div class="fee-highlight">
+        <i class="bi bi-cash-coin me-2"></i>
+        Initial Sourcing Service Fee: GHS 1,000 (non-refundable)
+      </div>
+
+      <div class="form-section">
+        <h3 class="section-title">
+          <i class="bi bi-gear-fill"></i>
+          3. Service Fee & Agreement
+        </h3>
+        <div class="mb-3">
+          <strong>This fee covers:</strong>
+          <ul class="mt-2" style="opacity: 0.9;">
+            <li>Product search & supplier verification</li>
+            <li>Quotation from suppliers</li>
+            <li>Shipping cost estimation</li>
+          </ul>
+          <p class="mt-3" style="opacity: 0.9;"><em>Final purchase & shipping costs are separate and will be communicated after supplier confirmation.</em></p>
+        </div>
+      </div>
+
+      <!-- Rules & Guidelines -->
+      <div class="rules-container">
+        <h3 class="rules-title">
+          <i class="bi bi-exclamation-triangle-fill me-2"></i>
+          4. Rules & Guidelines
+        </h3>
+        <ol class="rules-list">
+          <li>The Initial Sourcing Service Fee must be paid before we begin work.</li>
+          <li>The fee is non-refundable, even if you decide not to proceed with the order after quotes are provided.</li>
+          <li>We source only from verified suppliers to ensure quality, but we do not manufacture the items ourselves.</li>
+          <li>Customers are responsible for confirming product details before final order placement.</li>
+          <li>Shipping timelines depend on supplier readiness, logistics, and customs clearance. Delays may occur.</li>
+          <li>Balance payment for goods and shipping must be made before shipment leaves China.</li>
+          <li>We do not accept liability for: Manufacturer's production delays or changes in stock, or customs duties/charges outside our stated service.</li>
+          <li>By submitting this form and paying the service fee, you agree to the above terms.</li>
+        </ol>
+      </div>
+
+      <!-- Customer Declaration -->
+      <div class="form-section">
+        <h3 class="section-title">
+          <i class="bi bi-pen-fill"></i>
+          5. Customer Declaration
+        </h3>
+        <div class="mb-3">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="declaration" required>
+            <label class="form-check-label" for="declaration">
+              I confirm that the information provided is correct and I agree to the rules and guidelines of this sourcing service.
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payment Information -->
+      <div class="payment-info">
+        <h4><i class="bi bi-credit-card-fill me-2"></i>Payment Required</h4>
+        <p class="mb-2"><strong>Service Fee: GHS 1,000</strong></p>
+        <p class="mt-3 mb-0">Payment details will be provided via WhatsApp after form submission.</p>
+      </div>
+
+      <!-- Payment Confirmation -->
+      <div class="form-section">
+        <h3 class="section-title">
+          <i class="bi bi-receipt"></i>
+          6. Payment Confirmation
+        </h3>
+        <p class="mb-3">After making the payment, please confirm it using one of the methods below:</p>
+        
+        <!-- Option 1: Upload Screenshot -->
+        <div class="payment-method mb-4">
+          <h5><i class="bi bi-cloud-upload me-2"></i>Option 1: Upload Payment Screenshot</h5>
+          <div class="mb-3">
+            <label for="paymentScreenshot" class="form-label">Upload your mobile money payment screenshot:</label>
+            <input type="file" class="form-control" id="paymentScreenshot" name="paymentScreenshot" accept="image/*" onchange="handleFileUpload(this)">
+            <div class="form-text">Accepted formats: JPG, PNG, GIF (Max size: 5MB)</div>
+          </div>
+        </div>
+
+        <!-- Option 2: WhatsApp Instructions -->
+        <div class="payment-method">
+          <h5><i class="bi bi-whatsapp me-2"></i>Option 2: Send via WhatsApp</h5>
+          <p class="mb-3">If you prefer, you can send your payment screenshot directly to our WhatsApp:</p>
+          <div class="d-flex gap-3 flex-wrap">
+            <a href="https://wa.me/message/ELHL6MNXBJ2ZN1?text=Hello%2C%20I%27ve%20made%20a%20payment%20of%20GHS%201%2C000%20for%20sourcing%20service.%20Please%20find%20attached%20my%20payment%20screenshot." target="_blank" class="btn btn-success">
+              <i class="bi bi-whatsapp me-2"></i>Send Payment Screenshot via WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Submit Instructions -->
+      <div class="alert alert-info mt-4" role="alert">
+        <h6><i class="bi bi-info-circle me-2"></i>Before Submitting:</h6>
+        <ul class="mb-0">
+          <li>✅ Make sure you've paid GHS 1,000 via mobile money</li>
+          <li>📷 Upload your payment screenshot above, OR be ready to send it via WhatsApp</li>
+          <li>📋 Double-check all form details are correct</li>
+        </ul>
+      </div>
+
+      <button type="button" class="btn-submit" onclick="submitToWhatsApp()">
+        <i class="bi bi-whatsapp me-2"></i>
+        Submit Order Request via WhatsApp
+      </button>
+    </form>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // File upload handler
+    function handleFileUpload(input) {
+      const file = input.files[0];
+      const previewDiv = document.getElementById('file-preview') || createPreviewDiv(input);
+      
+      if (file) {
+        // Validate file type
+        if (!file.type.startsWith('image/')) {
+          alert('Please select a valid image file (JPG, PNG, GIF)');
+          input.value = '';
+          return;
+        }
+        
+        // Validate file size (5MB limit)
+        if (file.size > 5 * 1024 * 1024) {
+          alert('File size must be less than 5MB');
+          input.value = '';
+          return;
+        }
+        
+        // Show preview
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          previewDiv.innerHTML = `
+            <div class="file-info">
+              <img src="${e.target.result}" alt="Payment Screenshot">
+              <div>
+                <strong>✅ Payment Screenshot Uploaded</strong><br>
+                <small>File: ${file.name} (${(file.size/1024/1024).toFixed(2)}MB)</small>
+              </div>
+            </div>
+          `;
+          previewDiv.classList.add('show');
+        };
+        reader.readAsDataURL(file);
+      } else {
+        previewDiv.classList.remove('show');
+      }
+    }
+    
+    function createPreviewDiv(input) {
+      const previewDiv = document.createElement('div');
+      previewDiv.id = 'file-preview';
+      previewDiv.className = 'file-upload-preview';
+      input.parentNode.appendChild(previewDiv);
+      return previewDiv;
+    }
+
+    function submitToWhatsApp() {
+      // Get form values
+      let name = document.getElementById("name").value;
+      let phone = document.getElementById("phone").value;
+      let email = document.getElementById("email").value;
+      let location = document.getElementById("location").value;
+      let product = document.getElementById("product").value;
+      let description = document.getElementById("description").value;
+      let quantity = document.getElementById("quantity").value;
+      let budget = document.getElementById("budget").value;
+      let examples = document.getElementById("examples").value;
+      let declaration = document.getElementById("declaration").checked;
+      let paymentFile = document.getElementById("paymentScreenshot").files[0];
+
+      // Validate required fields
+      if (!name || !phone || !location || !product || !description || !quantity || !budget) {
+        alert("Please fill in all required fields before submitting.");
+        return;
+      }
+
+      // Validate declaration checkbox
+      if (!declaration) {
+        alert("Please accept the terms and conditions by checking the declaration box.");
+        return;
+      }
+
+      // Create WhatsApp message
+      let message = `*🏢 INITIAL SOURCING ORDER REQUEST*%0A%0A`;
+      message += `*📋 CUSTOMER INFORMATION*%0A`;
+      message += `Name: ${name}%0A`;
+      message += `Phone: ${phone}%0A`;
+      message += `Email: ${email || 'Not provided'}%0A`;
+      message += `Location: ${location}%0A%0A`;
+      
+      message += `*📦 PRODUCT INFORMATION*%0A`;
+      message += `Product: ${product}%0A`;
+      message += `Description: ${description}%0A`;
+      message += `Quantity: ${quantity}%0A`;
+      message += `Budget: ${budget}%0A`;
+      
+      if (examples) {
+        message += `Examples/Links: ${examples}%0A`;
+      }
+      
+      message += `%0A*💰 PAYMENT INFORMATION*%0A`;
+      message += `Initial Sourcing Fee: GHS 1,000 (non-refundable)%0A`;
+      
+      if (paymentFile) {
+        message += `Payment Screenshot: ✅ Uploaded (${paymentFile.name})%0A`;
+        message += `Note: Payment screenshot will be sent separately%0A`;
+      } else {
+        message += `Payment Screenshot: ⏳ Will be sent via WhatsApp%0A`;
+      }
+      
+      message += `%0A*✅ DECLARATION*%0A`;
+      message += `I confirm the information is correct and agree to the terms and conditions.%0A%0A`;
+      
+      if (paymentFile) {
+        message += `Please process my sourcing request. Payment screenshot uploaded with this form. Thank you! 🙏`;
+      } else {
+        message += `Please process my sourcing request. I will send the payment screenshot via WhatsApp. Thank you! 🙏`;
+      }
+
+      // Open WhatsApp
+      let whatsappURL = "https://wa.me/233269609634?text=" + message;
+      window.open(whatsappURL, "_blank");
+    }
+  </script>
+
+    <!-- Footer -->
+    <footer class="footer mt-5">
+        <div class="container">
+            <div class="footer-content">
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <h4 class="footer-title">geeLogistics</h4>
+                        <p>Your trusted partner for China-to-Ghana sourcing solutions. Quality products, reliable service, exceptional value.</p>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <h4 class="footer-title">Quick Links</h4>
+                        <ul class="footer-links">
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="index.html#about">About</a></li>
+                            <li><a href="index.html#services">Services</a></li>
+                            <li><a href="products.html">Products</a></li>
+                            <li><a href="service-request.html">Request Service</a></li>
+                            <li><a href="advertise.html">Advertise</a></li>
+                            <li><a href="privacy.html">Privacy & Terms</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <h4 class="footer-title">Connect With Us</h4>
+                        <ul class="footer-links">
+                            <li><a href="https://www.facebook.com/geeLogistics96" target="_blank">Facebook</a></li>
+                            <li><a href="https://chat.whatsapp.com/LbPuTOh6pcbLHQgQS18FYe?mode=ac_c" target="_blank">WhatsApp Group</a></li>
+                            <li><a href="https://whatsapp.com/channel/0029VbBBrd7JP217QuHjfu2f" target="_blank">WhatsApp Channel</a></li>
+                            <li><a href="https://wa.me/message/ELHL6MNXBJ2ZN1" target="_blank">Contact Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="currentYear"></span> geeLogistics. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+
+</body>
+</html>
